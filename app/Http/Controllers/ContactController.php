@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Testimonial;
-class TestimonialsController extends Controller
+use App\Contact;
+class ContactController extends Controller
+
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +14,8 @@ class TestimonialsController extends Controller
      */
     public function index()
     {
-        return view('admin.testimonials');
+        $contacts= Contact::all();
+        return view('admin.contacts',compact('contacts'));
     }
 
     /**
@@ -23,7 +25,7 @@ class TestimonialsController extends Controller
      */
     public function create()
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -34,16 +36,16 @@ class TestimonialsController extends Controller
      */
     public function store(Request $request)
     {
-
-        $testimonial =New Testimonial;
-        $values= $request->all();
-        foreach($values as $key =>$value){
-           if ($key!='_token'){
-   $testimonial->$key=$value;
-           }
+        $contact =New Contact;
+     $values= $request->all();
+     foreach($values as $key =>$value){
+        if ($key!='_token'){
+$contact->$key=$value;
         }
-        $testimonial->save();
-        return redirect(url('admin/testimonials'))->with(['success'=>'Testimonial has been successfully saved']);
+     }
+     $contact->save();
+     return redirect(url('contact'))->with(['success'=>'Your Message has been successfully sent , you will be replied soon']);
+
     }
 
     /**
@@ -54,7 +56,9 @@ class TestimonialsController extends Controller
      */
     public function show($id)
     {
-     return abort(404);
+        $page =['title'=>'Contac'];
+        $contact= Contact::find($id);
+        return view('admin.contact-details', compact('contact','page'));
     }
 
     /**
@@ -65,7 +69,7 @@ class TestimonialsController extends Controller
      */
     public function edit($id)
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -77,7 +81,7 @@ class TestimonialsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -88,8 +92,8 @@ class TestimonialsController extends Controller
      */
     public function destroy($id)
     {
-        $item=ParentsGuardians::find($id);
+        $item=Contact::find($id);
         $item->delete();
-        return redirect(url('admin/parents-guardians'))->with(['success'=>'Item Deleted Successfully']);
+        return redirect(url('admin/contacts'))->with(['success'=>'Item Deleted Successfully']);
     }
 }

@@ -22,51 +22,61 @@
     <section>
       <div class="container">
         <div class="row">
-          <div class="col-md-12">
-            <p></p>
-          </div>
+
+            <div class="col-md-12">
+                @include('includes.messages') </div>
         <div class="row">
           <div class="col-md-6">
             <div class="heading-line-bottom">
               <h4 class="heading-title">Health information</h4>
             </div>
             <form action="{{ url('health') }}" method="POST">
+                @csrf
                 <div class="row">
                 <div class="form-group col-md-8">
                   <label>Admission No:</label>
-                  <input type="text" class="form-control">
+                  <input type="text" class="form-control" name="admission_id">
                 </div>
               </div>
               <div class="row">
                 <div class="form-group col-md-12">
                  <label>Does your child have any medical condition?</label>
-                  <select class="form-control">
+                  <select class="form-control" name="any_medical_condition">
                     <option>Yes</option>
                     <option>No</option>
                   </select>
                 </div>
+
+
+
                 <div class="form-group col-md-12">
                   <label>If yes, pls state in full details.</label>
-                  <input type="text" class="form-control">
+                  <input type="text" class="form-control" name="medical_condition">
                 </div>
               </div>
               <div class="row">
+
+
                 <div class="form-group col-md-12">
                   <label>Also state if there is a special way/first aid rendered during crisis </label>
-                  <input type="text" class="form-control">
+                  <input type="text" class="form-control" name="special_way_to_administer_first_aid">
                 </div>
               </div>
                 <div class="row">
                 <div class="form-group col-md-12">
+
+
                  <label>Does your child have any allergies?</label>
-                  <select class="form-control">
+                  <select class="form-control" name="any_allergies">
                     <option>Yes</option>
                     <option>No</option>
                   </select>
                 </div>
+
+
                 <div class="form-group col-md-12">
                   <label>If Yes, pls specify </label>
-                  <input type="text" class="form-control">
+                  <input type="text" class="form-control" name="allergies">
                 </div>
               </div>
           </div>
@@ -74,7 +84,9 @@
               <div class="row">
                 <div class="form-group col-md-12">
                   <label>Is your child on any medication?</label>
-                  <select class="form-control">
+                  <select class="form-control" name="any_medication">
+
+
                     <option>Yes</option>
                     <option>No</option>
                   </select>
@@ -83,11 +95,11 @@
               <div class="row">
                <div class="form-group col-md-12">
                  <label>If Yes, specify</label>
-                 <input type="text" class="form-control">
+                 <input type="text" class="form-control" name="medication">
                 </div>
               </div>
               <div class="form-group">
-                <button type="submit" class="btn btn-default">Register</button>
+                <button type="submit" class="btn btn-default">Save</button>
               </div>
             </form>
           </div>

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Emergency_Contact_Info as Emergency;
 class EmergencyContactController extends Controller
 {
     /**
@@ -13,7 +13,8 @@ class EmergencyContactController extends Controller
      */
     public function index()
     {
-        //
+        $emergency_contacts= Emergency::all();
+        return view('admin.emergency-contacts',compact('emergency_contacts'));
     }
 
     /**
@@ -23,7 +24,7 @@ class EmergencyContactController extends Controller
      */
     public function create()
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -34,7 +35,16 @@ class EmergencyContactController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $emergency_contact =New Emergency;
+     $values= $request->all();
+     foreach($values as $key =>$value){
+        if ($key!='_token'){
+$emergency_contact->$key=$value;
+        }
+     }
+     $emergency_contact->save();
+     return redirect(url('emergency-contact'))->with(['success'=>'Your information was saved successfully']);
+
     }
 
     /**
@@ -45,7 +55,9 @@ class EmergencyContactController extends Controller
      */
     public function show($id)
     {
-        //
+        $page =['title'=>'Emergncy Contact'];
+        $emergency= Emergency::find($id);
+        return view('admin.emergency-contact-details', compact('emergency','page'));
     }
 
     /**
@@ -56,7 +68,7 @@ class EmergencyContactController extends Controller
      */
     public function edit($id)
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -68,7 +80,7 @@ class EmergencyContactController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -79,6 +91,8 @@ class EmergencyContactController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item=Emergency::find($id);
+        $item->delete();
+        return redirect(url('admin/emergency-contacts'))->with(['success'=>'Item Deleted Successfully']);
     }
 }

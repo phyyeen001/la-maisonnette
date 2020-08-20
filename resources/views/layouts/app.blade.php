@@ -22,7 +22,7 @@
     <link href="{{ asset('public/storage/css/app.css') }}" rel="stylesheet">
 
 <!-- Page Title -->
-<title>La Maisonnette - {{ ucwords($page['title']) }}</title>
+<title>La Maisonnette - {{ ucwords($page['title'] ?? '') }}</title>
 
 <!-- Favicon and Touch Icons -->
 <link href="{{asset('public/storage/images/favicon.png')}}" rel="shortcut icon" type="image/png">

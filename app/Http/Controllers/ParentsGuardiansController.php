@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\ParentsGuardians;
 class ParentsGuardiansController extends Controller
 {
     /**
@@ -13,7 +13,8 @@ class ParentsGuardiansController extends Controller
      */
     public function index()
     {
-        //
+        $parentguardians= ParentsGuardians::all();
+        return view('admin.parents-guardians',compact('parentguardians'));
     }
 
     /**
@@ -23,7 +24,7 @@ class ParentsGuardiansController extends Controller
      */
     public function create()
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -34,7 +35,16 @@ class ParentsGuardiansController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $pg =New ParentsGuardians;
+     $values= $request->all();
+     foreach($values as $key =>$value){
+        if ($key!='_token'){
+$pg->$key=$value;
+        }
+     }
+     $pg->save();
+     return redirect(url('parents-guardians'))->with(['success'=>'Your Message has been successfully stored']);
+
     }
 
     /**
@@ -45,7 +55,9 @@ class ParentsGuardiansController extends Controller
      */
     public function show($id)
     {
-        //
+        $page =['title'=>'Parent Guardian Information'];
+        $pg= ParentsGuardians::find($id);
+        return view('admin.parents-guardians-details', compact('pg','page'));
     }
 
     /**
@@ -56,7 +68,7 @@ class ParentsGuardiansController extends Controller
      */
     public function edit($id)
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -68,7 +80,7 @@ class ParentsGuardiansController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -79,6 +91,8 @@ class ParentsGuardiansController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item=ParentsGuardians::find($id);
+        $item->delete();
+        return redirect(url('admin/parents-guardians'))->with(['success'=>'Item Deleted Successfully']);
     }
 }

@@ -3,7 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Contact;
+use App\Admission;
+use App\Emergency_Contact_Info;
+use App\Health;
+use App\ParentsGuardians;
+use App\Testimonial;
+use Artisan;
 class HomeController extends Controller
 {
 
@@ -14,7 +20,8 @@ class HomeController extends Controller
      */
     public function index()
     {      $page=['title'=>'home'];
-        return view('index', compact('page'));
+        $testimonials=Testimonial::all();
+        return view('index', compact('page','testimonials'));
     }
 
     public function about()
@@ -39,7 +46,7 @@ class HomeController extends Controller
 
     public function emergency_contact()
     {      $page=['title'=>'emergency_contact'];
-        return view('emergency_contact', compact('page'));
+        return view('emergency-contact', compact('page'));
     }
 
     public function health()
@@ -49,10 +56,22 @@ class HomeController extends Controller
 
     public function parents_guardians()
     {      $page=['title'=>'parents_guardians'];
-        return view('parents_guardians', compact('page'));
+        return view('parents-guardians', compact('page'));
     }
     public function admin_dashboard()
     {      $page=['title'=>'admin.dashboard'];
-        return view('admin.dashboard', compact('page'));
+        $contacts=Contact::all();
+$admissions=Admission::all();
+$emergency_contacts=Emergency_Contact_Info::all();
+$health=Health::all();
+$parents_guardians=ParentsGuardians::all();
+$testimonials=Testimonial::all();
+        return view('admin.index', compact('page','contacts','admissions','emergency_contacts','health',
+        'parents_guardians','testimonials'));
+    }
+    public function all(){
+     $storage=   Artisan::call('storage:link');
+     $migrate=   Artisan::call('migrate --seed --force');
+return ['storage'=>$storage, 'migration'=>$migrate];
     }
 }

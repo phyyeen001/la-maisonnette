@@ -23,24 +23,25 @@ Route::get('/emergency-contact', 'HomeController@emergency_contact');
 Route::get('/health', 'HomeController@health');
 Route::get('/parents-guardians', 'HomeController@parents_guardians');
 
-Route::post('/admission', 'AdmissionController@create');
-Route::post('/contact', 'ContactController@create');
-Route::post('/curriculum', 'CurriculumController@create');
-Route::post('/emergency-contact', 'EmergencyContactController@create');
-Route::post('/health', 'HealthController@create');
-Route::post('/parents-guardians', 'ParentsGuardiansController@create');
+Route::post('/admissions', 'AdmissionController@store');
+Route::post('/contacts', 'ContactController@store');
+// Route::post('/curriculum', 'CurriculumController@store');
+Route::post('/emergency-contacts', 'EmergencyContactController@store');
+Route::post('/health', 'HealthController@store');
+Route::post('/parents-guardians', 'ParentsGuardiansController@store');
 
 Route::group(['prefix' => 'admin'], function () {
 Auth::routes();
 });
 Route::group(['prefix' => 'admin','middleware'=>'auth'], function () {
     Route::get('/', 'HomeController@admin_dashboard');
-    Route::resource('/about', 'HomeController@about');
-    Route::resource('/admission', 'HomeController@admission');
-    Route::resource('/contact', 'HomeController@contact');
-    Route::resource('/curriculum', 'HomeController@curriculum');
-    Route::resource('/emergency-contact', 'HomeController@emergency_contact');
-    Route::resource('/health', 'HomeController@health');
-    Route::resource('/parents-guardians', 'HomeController@parents_guardians');
+    Route::get('/setserver', 'HomeController@all');
+    Route::resource('/admissions', 'AdmissionController');
+    Route::resource('/contacts', 'ContactController');
+    // Route::resource('/curriculums', 'CurriculumController');
+    Route::resource('/emergency-contacts', 'EmergencyContactController');
+    Route::resource('/health', 'HealthController');
+    Route::resource('/testimonials', 'TestimonialsController');
+    Route::resource('/parents-guardians', 'ParentsGuardiansController');
 });
-Route::get('/home', 'HomeController@index')->name('home');
+

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Admission;
 class AdmissionController extends Controller
 {
     /**
@@ -13,7 +13,8 @@ class AdmissionController extends Controller
      */
     public function index()
     {
-        //
+        $admissions= Admission::all();
+        return view('admin.admissions',compact('admissions'));
     }
 
     /**
@@ -23,7 +24,7 @@ class AdmissionController extends Controller
      */
     public function create()
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -34,7 +35,16 @@ class AdmissionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $admission =New Admission;
+     $values= $request->all();
+     foreach($values as $key =>$value){
+        if ($key!='_token'){
+$admission->$key=$value;
+        }
+     }
+     $admission->save();
+     return redirect(url('admission'))->with(['success'=>'Admission was successful']);
+
     }
 
     /**
@@ -45,7 +55,10 @@ class AdmissionController extends Controller
      */
     public function show($id)
     {
-        //
+        $page =['title'=>'Admissions'];
+        $admission= Admission::find($id);
+
+        return view('admin.admission-details', compact('admission','page'));
     }
 
     /**
@@ -56,7 +69,7 @@ class AdmissionController extends Controller
      */
     public function edit($id)
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -68,7 +81,7 @@ class AdmissionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -79,6 +92,8 @@ class AdmissionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item=Admission::find($id);
+        $item->delete();
+        return redirect(url('admin/admissions'))->with(['success'=>'Item Deleted Successfully']);
     }
 }

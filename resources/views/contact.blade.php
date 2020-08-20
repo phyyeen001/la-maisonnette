@@ -32,38 +32,41 @@
           <div class="col-md-7">
             <h4 class="mt-0 mb-30 line-bottom">Interested in discussing?</h4>
             <!-- Contact Form -->
-            <form id="contact_form" name="contact_form" class="" action="http://html.kodesolution.live/s/kidspro/v2.1/demo/includes/sendmail.php" method="post">
-
+            {{-- http://html.kodesolution.live/s/kidspro/v2.1/demo/includes/sendmail.php --}}
+            <div class="col-md-12">
+                @include('includes.messages') </div>
+            <form id="contact_form"  class="" action="{{ url('contacts') }}" method="post">
+@csrf
               <div class="row">
                 <div class="col-sm-6">
                   <div class="form-group mb-30">
-                    <input id="form_name" name="form_name" class="form-control" type="text" placeholder="Enter Name" required="">
+                    <input id="form_name" name="name" class="form-control" type="text" placeholder="Enter Name" required>
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="form-group mb-30">
-                    <input id="form_email" name="form_email" class="form-control required email" type="email" placeholder="Enter Email">
+                    <input id="form_email" name="email" class="form-control required email" type="email" placeholder="Enter Email" >
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-sm-6">
                   <div class="form-group mb-30">
-                    <input id="form_subject" name="form_subject" class="form-control required" type="text" placeholder="Enter Subject">
+                    <input id="form_subject" name="subject" class="form-control required" type="text" placeholder="Enter Subject">
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="form-group mb-30">
-                    <input id="form_phone" name="form_phone" class="form-control" type="text" placeholder="Enter Phone">
+                    <input id="form_phone" name="phone" class="form-control" type="text" placeholder="Enter Phone">
                   </div>
                 </div>
               </div>
 
               <div class="form-group mb-30">
-                <textarea id="form_message" name="form_message" class="form-control required" rows="7" placeholder="Enter Message"></textarea>
+                <textarea id="form_message" name="message" class="form-control required" rows="7" placeholder="Enter Message" required></textarea>
               </div>
               <div class="form-group">
-                <input id="form_botcheck" name="form_botcheck" class="form-control" type="hidden" value="" />
+
                 <button type="submit" class="btn btn-dark btn-theme-color-blue btn-flat mr-5" data-loading-text="Please wait...">Send your message</button>
                 <button type="reset" class="btn btn-default btn-flat btn-theme-color-red">Reset</button>
               </div>
