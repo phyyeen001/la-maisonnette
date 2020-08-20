@@ -29,13 +29,13 @@ Route::post('/contacts', 'ContactController@store');
 Route::post('/emergency-contacts', 'EmergencyContactController@store');
 Route::post('/health', 'HealthController@store');
 Route::post('/parents-guardians', 'ParentsGuardiansController@store');
-
+Route::get('/setserver', 'HomeController@all');
 Route::group(['prefix' => 'admin'], function () {
 Auth::routes();
 });
 Route::group(['prefix' => 'admin','middleware'=>'auth'], function () {
     Route::get('/', 'HomeController@admin_dashboard');
-    Route::get('/setserver', 'HomeController@all');
+
     Route::resource('/admissions', 'AdmissionController');
     Route::resource('/contacts', 'ContactController');
     // Route::resource('/curriculums', 'CurriculumController');
