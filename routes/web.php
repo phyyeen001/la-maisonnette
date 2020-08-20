@@ -29,11 +29,17 @@ Route::post('/contacts', 'ContactController@store');
 Route::post('/emergency-contacts', 'EmergencyContactController@store');
 Route::post('/health', 'HealthController@store');
 Route::post('/parents-guardians', 'ParentsGuardiansController@store');
-Route::get('/setserver', 'HomeController@all');
-Route::group(['prefix' => 'admin'], function () {
-Auth::routes();
+// Route::get('/setserver', 'HomeController@all');
+Route::group(['prefix' => 'admin','namespace'=>'Auth'], function () {
+
+Route::get('/login', 'LoginController@showLoginForm')->name('login');
+Route::post('/login', 'LoginController@login');
+Route::post('/logout', 'LoginController@logout')->name('logout');
+
 });
 Route::group(['prefix' => 'admin','middleware'=>'auth'], function () {
+    // Auth::routes();
+
     Route::get('/', 'HomeController@admin_dashboard');
 
     Route::resource('/admissions', 'AdmissionController');

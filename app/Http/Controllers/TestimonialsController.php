@@ -88,8 +88,8 @@ class TestimonialsController extends Controller
      */
     public function destroy($id)
     {
-        $item=ParentsGuardians::find($id);
+        $item=Testimonial::find($id);
         $item->delete();
-        return redirect(url('admin/parents-guardians'))->with(['success'=>'Item Deleted Successfully']);
+        return redirect(url('/'))->with(['success'=>'Item Deleted Successfully']);
     }
 }

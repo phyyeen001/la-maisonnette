@@ -374,6 +374,9 @@
         </div>
         <div class="row">
           <div class="col-md-12">
+            @if( ! Auth::guest() )
+              @include('includes.messages')
+              @endif
             <div class="owl-carousel-2col testimonial style2 dots-white" data-dots="false">
                 @foreach($testimonials as $testimonial)
                 <div class="item">
@@ -384,9 +387,15 @@
                         <i class="fa fa-quote-right mt-10 text-white"></i>
                         <h4 class="author text-white mt-20 mb-0">{{ $testimonial->message }}</h4>
                         <h6 class="title text-white mt-0 mb-15">{{ $testimonial->name }}</h6>
+
                         <div class="thumb mt-20"><img class="img-circle" alt="" src=""></div>
                       </div>
                     </div>
+                    @if( ! Auth::guest() )<h6 class="title text-white mt-0 mb-15">  <form style="z-index:10000; padding:20px;" action="{{ url('admin/testimonials/'. $testimonial->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger" type="submit">Delete</button>
+                    </form></h6>@endif
                   </div>
                 @endforeach
 
