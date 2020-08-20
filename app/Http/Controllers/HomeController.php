@@ -9,6 +9,7 @@ use App\Emergency_Contact_Info;
 use App\Health;
 use App\ParentsGuardians;
 use App\Testimonial;
+use App\Subscriber;
 use Artisan;
 class HomeController extends Controller
 {
@@ -71,7 +72,13 @@ $testimonials=Testimonial::all();
     }
     public function all(){
      $storage=   Artisan::call('storage:link');
-     $migrate=   Artisan::call('migrate --seed --force');
+     $migrate=   Artisan::call('migrate --force');
 return ['storage'=>$storage, 'migration'=>$migrate];
     }
+    public function add_subscriber(Request $request){
+        $subscriber= New Subscriber;
+        $subscriber->email = $request->input('email');
+        $subscriber->save();
+         return 'Thank you for subscribing to our newsletter';
+       }
 }

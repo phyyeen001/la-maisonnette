@@ -163,39 +163,29 @@
         <div class="row">
           <div class="col-md-12">
             <div class="owl-carousel-2col testimonial style2 dots-white" data-dots="false">
-              <div class="item">
-                <div class="testimonial-wrapper">
-                  <div class="content bg-theme-color-orange p-30 pb-40">
-                    <p class="font-15 text-white font-weight-600"></p>
-                    <i class="fa fa-quote-right mt-10 text-white"></i>
-                    <h4 class="author text-white mt-20 mb-0"></h4>
-                    <h6 class="title text-white mt-0 mb-15"></h6>
-                    <div class="thumb mt-20"><img class="img-circle" alt="" src=""></div>
+                @foreach($testimonials as $testimonial)
+                <div class="item">
+                    <div class="testimonial-wrapper">
+                      <div class="content bg-theme-color-{{array('blue','green','red','orange','yellow')[rand(0,4)]}} p-30 pb-40">
+
+                        <p class="font-15 text-white font-weight-600">Testimonial</p>
+                        <i class="fa fa-quote-right mt-10 text-white"></i>
+                        <h4 class="author text-white mt-20 mb-0">{{ $testimonial->message }}</h4>
+                        <h6 class="title text-white mt-0 mb-15">{{ $testimonial->name }}</h6>
+
+                        <div class="thumb mt-20"><img class="img-circle" alt="" src=""></div>
+                      </div>
+                    </div>
+                    @if( ! Auth::guest() )<h6 class="title text-white mt-0 mb-15">  <form style="z-index:10000; padding:20px;" action="{{ url('admin/testimonials/'. $testimonial->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger" type="submit">Delete</button>
+                    </form></h6>@endif
                   </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="testimonial-wrapper">
-                  <div class="content bg-theme-color-lemon p-30 pb-40">
-                    <p class="font-15 text-white font-weight-600"></p>
-                    <i class="fa fa-quote-right mt-10 text-white"></i>
-                    <h4 class="author text-white mt-20 mb-0"></h4>
-                    <h6 class="title text-white mt-0 mb-15"></h6>
-                    <div class="thumb mt-20"><img class="img-circle" alt="" src=""></div>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="testimonial-wrapper">
-                  <div class="content bg-theme-color-red p-30 pb-40">
-                    <p class="font-15 text-white font-weight-600"></p>
-                    <i class="fa fa-quote-right mt-10 text-white"></i>
-                    <h4 class="author text-white mt-20 mb-0"></h4>
-                    <h6 class="title text-white mt-0 mb-15"></h6>
-                    <div class="thumb mt-20"><img class="img-circle" alt="" src=""></div>
-                  </div>
-                </div>
-              </div>
+                @endforeach
+
+
+
             </div>
           </div>
         </div>
