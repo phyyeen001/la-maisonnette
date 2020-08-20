@@ -27,7 +27,9 @@ class HomeController extends Controller
 
     public function about()
     {      $page=['title'=>'about'];
-        return view('about', compact('page'));
+        $testimonials=Testimonial::all();
+
+        return view('about', compact('page','testimonials'));
     }
 
     public function admission()
